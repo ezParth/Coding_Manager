@@ -1,0 +1,43 @@
+[{
+    "success": true,
+    "data": {
+      "status": "OK",
+      "result": [
+        {
+          "lastName": "Korotkevich",
+          "country": "Belarus",
+          "lastOnlineTimeSeconds": 1741499186,
+          "city": "Gomel",
+          "rating": 3857,
+          "friendOfCount": 78948,
+          "titlePhoto": "https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg",
+          "handle": "tourist",
+          "avatar": "https://userpic.codeforces.org/422/avatar/2b5dbe87f0d859a2.jpg",
+          "firstName": "Gennady",
+          "contribution": 119,
+          "organization": "ITMO University",
+          "rank": "legendary grandmaster",
+          "maxRating": 4009,
+          "registrationTimeSeconds": 1265987288,
+          "maxRank": "tourist"
+        }
+      ]
+    }
+  },
+  {
+    "success": true,
+    "data": {
+      "status": "OK",
+      "result": [
+        {
+          "contribution": 0,
+          "lastOnlineTimeSeconds": 1741517450,
+          "friendOfCount": 0,
+          "titlePhoto": "https://userpic.codeforces.org/4431377/title/a6bc6947d1614e9c.jpg",
+          "handle": "parth_cf",
+          "avatar": "https://userpic.codeforces.org/4431377/avatar/3ebe49224f56307f.jpg",
+          "registrationTimeSeconds": 1731664770
+        }
+      ]
+    }
+  }]
