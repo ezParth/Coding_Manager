@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'Moondance';
+    src: url('../fonts/Moondance-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.moondance-font {
+    font-family: 'Moondance', sans-serif;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Thin.ttf') format('truetype'); /* Make sure you have the thin weight font file */
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+.inter-font {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+}
