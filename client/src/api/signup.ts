@@ -1,34 +1,45 @@
-import axios, { AxiosResponse } from "axios";
-import { SIGNUP_API } from "./Backend_API";
+import axios from "axios";
+import { LOGIN_API } from "./Backend_API";
 
-interface SignupResponse {
-  success: boolean;
+interface LoginResponse {
+  success?: boolean;
   message?: string;
+  token?: string;
 }
 
-const signupAPI = async (
+const loginAPI = async (
   username: string,
   email: string,
   password: string
-): Promise<SignupResponse | Error> => {
+): Promise<LoginResponse> => {
   try {
-    const res: AxiosResponse<SignupResponse> = await axios.post(SIGNUP_API, {
-      username: username,
-      password: password,
-      headers: {
-        "Content-Type": "applicatio/json",
-        credentials: "true",
-      },
-    });
+    const res = await axios.post(
+      LOGIN_API,
+      { username, email, password }, // Body
+      {
+        headers: {
+          "Content-Type": "application/json",
+          credentials: "true",
+        },
+      }
+    );
     if (res.data.success) {
       localStorage.setItem("username", username);
       localStorage.setItem("email", email);
+      try {
+        localStorage.setItem("token", res.data.token);
+      } catch (error) {
+        console.log(
+          "An error occured in setting up token in the login api: ",
+          error
+        );
+      }
     }
     return res.data;
   } catch (error: any) {
-    console.log("Error in signup.ts", error);
-    return error;
+    console.log(error);
+    return { success: false, message: `An unexted error occured: ${error}` };
   }
 };
 
-export default signupAPI;
+export default loginAPI;

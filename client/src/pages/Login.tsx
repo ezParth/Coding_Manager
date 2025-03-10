@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import loginAPI from "../api/login";
+import { useNavigate } from "react-router-dom";
+import signupAPI from "../api/signup";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -6,9 +9,36 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(true); // Default to login mode
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ username, email, password });
+    const navigate = useNavigate();
+    if (isLoggingIn) {
+      //handling login
+      try {
+        const data = await loginAPI(username, password);
+        if (data.success) {
+          console.log(data.message);
+          navigate("/");
+        } else {
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.log("Error in login", error);
+      }
+    } else {
+      //handling signup
+      try {
+        const data = await signupAPI(username, email, password);
+        if (data.success) {
+          console.log(data.message);
+          navigate("/");
+        } else {
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.log("an unexpected error ocuured: ", error);
+      }
+    }
   };
 
   return (
