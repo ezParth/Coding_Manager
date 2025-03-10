@@ -10,6 +10,6 @@ app.use(cors({
 }))
 app.use(express.json());
 
-app.use("/apps/cp", authRoutes);
+app.use("/parth/cp", authRoutes);
 
 export default app;
