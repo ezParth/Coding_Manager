@@ -3,7 +3,7 @@ import { CODEFORCES_API } from "./Backend_API";
 
 const codeforces_API = async (
   username: string
-): Promise<AxiosResponse<any>> => {
+): Promise<any> => {
   try {
     const res: AxiosResponse<any> = await axios.get(CODEFORCES_API, {
       headers: {
