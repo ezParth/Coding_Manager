@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN_API } from "./Backend_API";
+import { SIGNUP_API } from "./Backend_API";
 
 interface LoginResponse {
   success?: boolean;
@@ -14,7 +14,7 @@ const loginAPI = async (
 ): Promise<LoginResponse> => {
   try {
     const res = await axios.post(
-      LOGIN_API,
+      SIGNUP_API,
       { username, email, password }, // Body
       {
         headers: {
@@ -38,7 +38,7 @@ const loginAPI = async (
     return res.data;
   } catch (error: any) {
     console.log(error);
-    return { success: false, message: `An unexted error occured: ${error}` };
+    return { success: false, message: `An unexted error occured in signup.ts: ${error}` };
   }
 };
 

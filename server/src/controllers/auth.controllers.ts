@@ -92,7 +92,7 @@ export const isAuth: RequestHandler = (req, res, next) => {
     }
 };
 
-export const getUserInfo: RequestHandler = async (req, res, next) => {
+export const getCodeforcesInfo: RequestHandler = async (req, res, next) => {
     try {
         const handle = req.query.handle as string;
 

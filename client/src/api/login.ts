@@ -36,7 +36,7 @@ const loginAPI = async (
     return res.data;
   } catch (error: any) {
     console.log(error);
-    return { success: false, message: `An unexted error occured: ${error}` };
+    return { success: false, message: `An unexted error occured in login.ts: ${error}` };
   }
 };
 

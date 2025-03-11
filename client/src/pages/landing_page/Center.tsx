@@ -48,7 +48,7 @@ const Center: React.FC = () => {
 
           {/* Create Button */}
           <button className="w-4/5 p-4 bg-[#ff6423] text-white text-lg font-semibold rounded-md cursor-pointer hover:bg-[#ff6433]">
-            CREATE +
+            ADD YOUR ACCOUNT +
           </button>
         </div>
       </div>
