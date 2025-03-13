@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import path from "path";
 import dotenv from "dotenv"
 import { fetchCodeforcesData } from "../config/codeforces";
+import axios from "axios";
 dotenv.config({path: path.resolve(__dirname, "../config/.env")})
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
@@ -103,16 +104,39 @@ export const getCodeforcesInfo: RequestHandler = async (req, res, next) => {
 
         console.log(`Fetching Codeforces data: https://codeforces.com/api/user.info?handles=${handle}`);
 
+        const numberOfProbelms = await calculateNumberofProblemsInCodeforces(handle)
+
         const data = await fetchCodeforcesData("user.info", { handles: handle });
+        console.log("data",data)
 
         if (!data || data.status !== "OK") {
             res.status(500).json({ message: "Failed to fetch user info from Codeforces." });
             return; // ✅ Ensure function execution stops
         }
 
-        res.status(200).json({ success: true, data }); // ✅ No need to return Response object
+        res.status(200).json({success: true ,message: "Data fetched of codeforces: ", data: data, numberOfProbelms: numberOfProbelms}); // ✅ No need to return Response object
+        console.log({success: true ,message: "Data fetched of codeforces: ", data: data, numberOfProbelms: numberOfProbelms})
     } catch (error) {
         console.error("Error fetching user info:", error);
         next(error); // ✅ Ensure Express handles the error properly
     }
 };
+
+const  calculateNumberofProblemsInCodeforces = async (handle: string) => {
+    const url = `https://codeforces.com/api/user.status?handle=${handle}`
+    try {
+        const res = await axios.get(url);
+        const data = res.data;
+        
+        if (!Array.isArray(data.result)) {
+          console.log("Error: Expected an array but got:", data.result);
+        } else {
+          const count = data.result.filter((item: any) => item.verdict === "OK").length;
+          console.log("Count of 'OK' verdicts:", count);
+          return count;
+        }        
+        return 0;
+    } catch (error) {
+        console.log("Error in getting number of problems",error);
+    }
+}
