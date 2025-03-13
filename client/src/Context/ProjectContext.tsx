@@ -5,14 +5,14 @@ interface ReactNodeInterface{
 }
 
 export interface ProjectInterface {
-  image: string;
-  image2: string;
+  image: File | null;
+  image2: File | null;
   title: string;
   description: string;
   titleWarning: string;
   descWarning: string;
-  setImage: Dispatch<SetStateAction<string>>;
-  setImage2: Dispatch<SetStateAction<string>>;
+  setImage: Dispatch<SetStateAction<File | null>>;
+  setImage2: Dispatch<SetStateAction<File | null>>;
   setTitle: Dispatch<SetStateAction<string>>;
   setDescription: Dispatch<SetStateAction<string>>;
   setTitleWarning: Dispatch<SetStateAction<string>>;
@@ -30,8 +30,8 @@ export interface ProjectInterface {
 }
 
 export const ProjectContext = createContext<ProjectInterface>({
-    image: "",
-    image2: "",
+    image: null,
+    image2: null,
     title: "",
     description: "",
     titleWarning: "",
@@ -56,8 +56,8 @@ export const ProjectContext = createContext<ProjectInterface>({
 
 export const ProjectContextProvider = ({ children }: ReactNodeInterface) => {
 
-    const [image, setImage] = useState<string>("");
-    const [image2, setImage2] = useState<string>("");
+    const [image, setImage] = useState<File | null>(null);
+    const [image2, setImage2] = useState<File | null>(null);
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [titleWarning, setTitleWarning] = useState<string>("");

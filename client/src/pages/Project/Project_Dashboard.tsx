@@ -9,9 +9,9 @@ import { ProjectContext } from '../../Context/ProjectContext'
 
 const Project_Dashboard: React.FC = () => {
     const { image, image2, slackLink, linkedInLink, twitterLink, title, description, websiteLink, githubLink } = useContext(ProjectContext)
-    const handleProjectSave: any = () => {
+    const handleProjectSave: any = async () => {
         try {
-            const res = Project_API( image, image2, slackLink, linkedInLink, twitterLink, title, description, websiteLink, githubLink);
+            const res = await Project_API( image, image2, slackLink, linkedInLink, twitterLink, title, description, websiteLink, githubLink);
             console.log(res);
         } catch (error) {
             console.log("Error in handleProjectSave",error);
@@ -24,7 +24,7 @@ const Project_Dashboard: React.FC = () => {
             <Project_Images/>
             <Project_Content />
             <Project_Socials />
-            <button onClick={handleProjectSave}>Save</button>
+            <button className='bg-orange-600 hover:bg-amber-500 pr-10 font-bold pl-10 pt-4 pb-4 mt-4 cursor-pointer rounded-[4px]' onClick={handleProjectSave}>Save</button>
             <div className='mt-40'>
             <Bottom/>
             </div>

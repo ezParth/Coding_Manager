@@ -3,12 +3,12 @@ import { PROJECT_API } from "./Backend_API";
 
 interface ResponseInterface {
   success?: boolean;
-  message?: true;
+  message?: string;
 }
 
 const Project_API = async (
-  image: string,
-  image2: string,
+  image: File | null,
+  image2: File | null,
   slackLink: string,
   linkedInLink: string,
   twitterLink: string,
@@ -18,31 +18,31 @@ const Project_API = async (
   githubLink: string
 ): Promise<ResponseInterface> => {
   try {
-    const res = await axios.post(
-      PROJECT_API,
-      {
-        image,
-        image2,
-        slackLink,
-        linkedInLink,
-        twitterLink,
-        title,
-        description,
-        websiteLink,
-        githubLink,
+    const formData = new FormData();
+
+    // Append images if available
+    if (image) formData.append("image", image);
+    if (image2) formData.append("image2", image2);
+
+    // Append other fields
+    formData.append("slackLink", slackLink);
+    formData.append("linkedInLink", linkedInLink);
+    formData.append("twitterLink", twitterLink);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("websiteLink", websiteLink);
+    formData.append("githubLink", githubLink);
+
+    const res = await axios.post(PROJECT_API, formData, {
+      headers: {
+        credentials: "true",
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          credentials: "true",
-        },
-      }
-    );
-    
+    });
+
     return res.data;
   } catch (error: any) {
     console.log("Error in Project_API", error);
-    return error;
+    return { success: false, message: "Error in API call" };
   }
 };
 

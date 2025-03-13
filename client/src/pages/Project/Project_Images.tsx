@@ -1,38 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ProjectContext } from "../../Context/ProjectContext";
 
 const Project_Images: React.FC = () => {
-  const{ image, setImage, image2, setImage2 } = useContext(ProjectContext)
-  // const [image, setImage] = useState<string | null>(null);
-  // const [image2, setImage2] = useState<string>('');
+  const { setImage, setImage2 } = useContext(ProjectContext);
+
+  // State for previewing images
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewImage2, setPreviewImage2] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
+
+      // Preview image
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      setPreviewImage(imageUrl);
+
+      // Create FormData and store the actual image
+      // const formData = new FormData();
+      // formData.append("image", file);
+      setImage(file);
     }
   };
 
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      setImage2(imageUrl);
-    }
-  };
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    if (event.dataTransfer.files && event.dataTransfer.files[0]) {
-      const file = event.dataTransfer.files[0];
-      console.log("FILE --> ", file);
+      // Preview image
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      setPreviewImage2(imageUrl);
+
+      // Create FormData and store the actual image
+      // const formData = new FormData();
+      // formData.append("image2", file);
+      setImage2(file);
     }
   };
 
@@ -45,17 +47,10 @@ const Project_Images: React.FC = () => {
 
       {/* Right Side (70%) */}
       <div className="w-7/10 flex items-center justify-center p-6 gap-x-14">
-        <div
-          className="w-[calc(256px*16/9)] h-64 border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center text-gray-300 cursor-pointer bg-gray-900 hover:border-gray-200 transition-all duration-300 relative"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          {image ? (
-            <img
-              src={image}
-              alt="Uploaded"
-              className="w-full h-full object-cover rounded-lg"
-            />
+        {/* First Image Upload */}
+        <div className="relative w-[calc(256px*16/9)] h-64 border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center text-gray-300 cursor-pointer bg-gray-900 hover:border-gray-200 transition-all duration-300">
+          {previewImage ? (
+            <img src={previewImage} alt="Uploaded" className="w-full h-full object-cover rounded-lg" />
           ) : (
             <>
               <p className="text-lg">Drag & Drop to Upload Image</p>
@@ -69,17 +64,11 @@ const Project_Images: React.FC = () => {
             </>
           )}
         </div>
-        <div
-          className="w-[calc(256px*16/9)] h-64 border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center text-gray-300 cursor-pointer bg-gray-900 hover:border-gray-200 transition-all duration-300 relative"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          {image ? (
-            <img
-              src={image2}
-              alt="Uploaded"
-              className="w-full h-full object-cover rounded-lg"
-            />
+
+        {/* Second Image Upload */}
+        <div className="relative w-[calc(256px*16/9)] h-64 border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center text-gray-300 cursor-pointer bg-gray-900 hover:border-gray-200 transition-all duration-300">
+          {previewImage2 ? (
+            <img src={previewImage2} alt="Uploaded" className="w-full h-full object-cover rounded-lg" />
           ) : (
             <>
               <p className="text-lg">Drag & Drop to Upload Image</p>
