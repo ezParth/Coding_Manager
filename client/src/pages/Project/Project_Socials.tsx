@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import githublogo from "../../assets/github (1).svg";
 import twitterlogo from "../../assets/twitter.svg";
 import slacklogo from "../../assets/slack-icon.svg";
 import linkedinLogo from "../../assets/linkedin-original.svg"
 import LinkLogo from "../../assets/link.svg"
+import { ProjectContext } from "../../Context/ProjectContext";
 
 const Project_Socials: React.FC = () => {
-  const [githubLink, setGithubLink] = useState<string>("");
-  const [twitterLink, setTwitterLink] = useState<string>("");
-  const [slackLink, setSlackLink] = useState<string>("");
-  const [linkedInLink, setlinkedInLink] = useState<string>("");
-  const [websiteLink, setWebsiteLink] = useState<string>("");
+  const { githubLink, setGithubLink, twitterLink, setTwitterLink, slackLink, setSlackLink, linkedInLink, setlinkedInLink, websiteLink, setWebsiteLink } = useContext(ProjectContext)
+  // const [githubLink, setGithubLink] = useState<string>("");
+  // const [twitterLink, setTwitterLink] = useState<string>("");
+  // const [slackLink, setSlackLink] = useState<string>("");
+  // const [linkedInLink, setlinkedInLink] = useState<string>("");
+  // const [websiteLink, setWebsiteLink] = useState<string>("");
   return (
     <div>
       <div className="flex border-2 border-b-0 border-gray-400 h-20">

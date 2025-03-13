@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { ProjectContext } from "../../Context/ProjectContext";
 
 const Project_Content: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [titleWarning, setTitleWarning] = useState("");
-  const [descWarning, setDescWarning] = useState("");
+
+  const {title, setTitle, description, setDescription, titleWarning, setTitleWarning, descWarning, setDescWarning } = useContext(ProjectContext)
+
+  // const [title, setTitle] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [titleWarning, setTitleWarning] = useState("");
+  // const [descWarning, setDescWarning] = useState("");
 
   // Function to count words
   const countWords = (text: string) => {

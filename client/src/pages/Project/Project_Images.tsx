@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { ProjectContext } from "../../Context/ProjectContext";
 
 const Project_Images: React.FC = () => {
-  const [image, setImage] = useState<string | null>(null);
-  const [image2, setImage2] = useState<string>('');
+  const{ image, setImage, image2, setImage2 } = useContext(ProjectContext)
+  // const [image, setImage] = useState<string | null>(null);
+  // const [image2, setImage2] = useState<string>('');
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
