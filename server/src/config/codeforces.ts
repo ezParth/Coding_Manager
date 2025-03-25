@@ -44,6 +44,8 @@ export const fetchCodeforcesData = async (method: string, params: Record<string,
         apiSig,
     }).toString()}`;
 
+    console.log("URL: ",url);
+
     try {
         const response = await axios.get(url);
         return response.data;

@@ -3,17 +3,16 @@ import { CODEFORCES_API } from "./Backend_API";
 
 const codeforces_API = async (
   username: string
-): Promise<AxiosResponse<any>> => {
+): Promise<any> => {
   try {
     const res: AxiosResponse<any> = await axios.get(CODEFORCES_API, {
+      params: {handle: username},
       headers: {
         "Content-Type": "application/json",
         credentials: "true",
       },
-      params: {
-        username: username,
-      },
     });
+    console.log("Response->",res.data)
     return res.data;
   } catch (error: any) {
     console.log("Error in codeforces_API", error);
