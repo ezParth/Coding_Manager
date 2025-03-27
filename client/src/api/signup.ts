@@ -1,17 +1,17 @@
 import axios from "axios";
 import { SIGNUP_API } from "./Backend_API";
 
-interface LoginResponse {
+interface SignupResponse {
   success?: boolean;
   message?: string;
   token?: string;
 }
 
-const loginAPI = async (
+const signupAPI = async (
   username: string,
   email: string,
   password: string
-): Promise<LoginResponse> => {
+): Promise<SignupResponse> => {
   try {
     const res = await axios.post(
       SIGNUP_API,
@@ -42,4 +42,4 @@ const loginAPI = async (
   }
 };
 
-export default loginAPI;
+export default signupAPI;
