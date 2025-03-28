@@ -5,6 +5,7 @@ import Display from "./Display";
 import Bottom from "./Bottom";
 import SideBar from "./SideBar";
 import Cp_panel from "./Cp_panel";
+import ShowProject from "./ShowProject";
 
 const Home: React.FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
@@ -29,6 +30,7 @@ const Home: React.FC = () => {
         <div className="pt-24">
           <Center />
           <Cp_panel />
+          <ShowProject />
           <Display />
           <Bottom />
         </div>

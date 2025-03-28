@@ -6,7 +6,8 @@ export interface IUser extends Document {
   password: string;
   defaultCodeforcesId: string
   defaultLeetcodeId: string
-  Projects: ObjectId
+  Projects: [ObjectId]
+  NumberOfProjects: number
 }
 
 const userSchema = new Schema<IUser>({
@@ -15,7 +16,8 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
   defaultCodeforcesId: { type: String },
   defaultLeetcodeId: { type: String },
-  Projects: { type: mongoose.Schema.Types.ObjectId , ref:'Project' },
+  Projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
+  NumberOfProjects: { type: Number, default: 0 },
 });
 
 const User = mongoose.model<IUser>("User", userSchema);

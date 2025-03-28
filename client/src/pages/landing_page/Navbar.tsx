@@ -7,17 +7,25 @@ const Navbar: React.FC = () => {
   const handleLoginRoute = () => {
     navigate("/login");
   };
+
+  const handleHome = () => {
+    navigate("/")
+  }
+ 
+  const handleProjectNavigation = () => {
+    navigate("/upload")
+  }
   return (
     <div className="">
       <div className="w-full h-14 flex items-center px-4 shadow-md border-b-[0.5px] border-gray-800">
-        <span className="text-4xl font-medium text-white cursor-pointer hover:text-blue-500 moondance-font ml-44">
+        <span className="text-4xl font-medium text-white cursor-pointer hover:text-blue-500 moondance-font ml-44" onClick={handleHome}>
           coding manager
         </span>
       </div>
 
       <div className="w-full h-18 flex items-center px-4 shadow-md border-b-[0.5px] border-gray-800 justify-between">
         <div className="ml-44">
-          <span className="text-white text-2xl cursor-pointer hover:text-gray-400 inter-font font-thin">
+          <span className="text-white text-2xl cursor-pointer hover:text-gray-400 inter-font font-thin" onClick={handleProjectNavigation}>
             🏗️ ADD
           </span>
         </div>
@@ -32,10 +40,10 @@ const Navbar: React.FC = () => {
             Login
           </span>
           <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
-            Support
+            Resume
           </span>
-          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
-            Open Source
+          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold" onClick={handleHome}>
+            Home
           </span>
         </div>
       </div>

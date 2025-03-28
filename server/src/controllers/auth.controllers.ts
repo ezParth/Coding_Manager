@@ -140,3 +140,23 @@ const  calculateNumberofProblemsInCodeforces = async (handle: string) => {
         console.log("Error in getting number of problems",error);
     }
 }
+
+export const isAuthenticated = (req: any, res: any, next: any) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ message: "Unauthorized, No token found" });
+    }
+
+    const token = authHeader.split(" ")[1]; // Extract token from "Bearer <token>"
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET) as { id: string; username: string };
+        (req as any).user = decoded; // Attach decoded user info to request
+        console.log("Decoded Token:", decoded);
+        next();
+    } catch (error) {
+        console.log("Error in isAuth:", error);
+        return res.status(401).json({ message: "Invalid token" });
+    }
+};
