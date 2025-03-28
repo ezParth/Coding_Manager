@@ -3,7 +3,7 @@ import { Request } from "express";
 
 export const handleMultipartFormData = (req: Request): Promise<{ fields: Record<string, any>; files: Array<any> }> => {
   return new Promise((resolve, reject) => {
-    const fields: Record<string, any> = {}; // Change to an object instead of an array
+    const fields: Record<string, any> = {};
     const files: Array<any> = [];
 
     try {
@@ -18,12 +18,7 @@ export const handleMultipartFormData = (req: Request): Promise<{ fields: Record<
         const { filename, mimeType } = info;
         console.log(`Uploading file: ${filename}`);
 
-        // Push file info to files array
         files.push({ fieldname, filename, mimeType });
-
-        // You can also save the file to disk if needed
-        // const saveTo = path.join(__dirname, "uploads", filename);
-        // file.pipe(fs.createWriteStream(saveTo));
 
         file.resume(); // Important to consume the stream to avoid memory leaks
       });

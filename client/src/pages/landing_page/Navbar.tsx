@@ -1,7 +1,12 @@
 import React from "react";
 import "../../styles/Fonts.css"; // Assuming you have your CSS in App.css
+import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
+  const handleLoginRoute = () => {
+    navigate("/login");
+  };
   return (
     <div className="">
       <div className="w-full h-14 flex items-center px-4 shadow-md border-b-[0.5px] border-gray-800">
@@ -20,7 +25,10 @@ const Navbar: React.FC = () => {
           <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
             About
           </span>
-          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
+          <span
+            className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold"
+            onClick={handleLoginRoute}
+          >
             Login
           </span>
           <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
@@ -33,6 +41,6 @@ const Navbar: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

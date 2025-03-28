@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(true); // Default to login mode
+  const [isLoggingIn, setIsLoggingIn] = useState(false); // Default to login mode
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
