@@ -6,13 +6,16 @@ import Project_Socials from './Project_Socials'
 import Bottom from '../landing_page/Bottom'
 import Project_API from '../../api/Project.api'
 import { ProjectContext } from '../../Context/ProjectContext'
+import { useNavigate } from 'react-router-dom'
 
 const Project_Dashboard: React.FC = () => {
     const { image, image2, slackLink, linkedInLink, twitterLink, title, description, websiteLink, githubLink } = useContext(ProjectContext)
+    const navigate = useNavigate()
     const handleProjectSave: any = async () => {
         try {
             const res = await Project_API( image, image2, slackLink, linkedInLink, twitterLink, title, description, websiteLink, githubLink);
             console.log(res);
+            navigate("/")
         } catch (error) {
             console.log("Error in handleProjectSave",error);
         }
