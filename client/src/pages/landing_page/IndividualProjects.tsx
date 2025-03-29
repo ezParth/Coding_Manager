@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image2 from "../../assets/30875866_7742218.jpg";
 import Image3 from "../../assets/31798960_7763254.jpg";
+import getProjects from "../../api/GetProjects.api";
 
 const projects = [
     {
@@ -23,9 +24,36 @@ const projects = [
     },
 ];
 
+interface IUSERPROJECT{
+    projectTitle: string;
+    projectDescription: string;
+    projectLinkedIn: string;
+    projectTwitter: string;
+    projectLink: string;
+    projectSlack: string;
+    projectImages: [string];
+}
+
 const IndividualProjects: React.FC = () => {
+
+const [userProjects, setUserProjects] = useState<IUSERPROJECT[]>([]);
+
+const getUserProjects = async () => {
+    const res = await getProjects();
+    if(res?.success){
+        setUserProjects(res.projects);
+    }
+}
+
+console.log("USER PROJECTS: ", userProjects);
+
+useEffect(() => {
+    // getUserProjects();
+}, [])
+
     return (
         <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto">
+            <button className="flex items-center justify-center bg-amber-500 text-2xl text-black hover:bg-amber-400 cursor-pointer" onClick={getUserProjects}>GET PROJECTS</button>
             {projects.map((project, index) => (
                 <div key={index} className="flex w-full border border-gray-500 rounded-lg overflow-hidden bg-gray-900 text-white h-96">
                     {/* Left Image Section */}

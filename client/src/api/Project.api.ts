@@ -33,15 +33,19 @@ const Project_API = async (
     formData.append("websiteLink", websiteLink);
     formData.append("githubLink", githubLink);
 
+    // Retrieve token from localStorage
+    const token = localStorage.getItem("token");
+
     const res = await axios.post(PROJECT_API, formData, {
       headers: {
-        credentials: "true",
+        Authorization: token ? `Bearer ${token}` : "",
       },
+      withCredentials: true, // Ensures cookies are sent if needed
     });
 
     return res.data;
   } catch (error: any) {
-    console.log("Error in Project_API", error);
+    console.error("Error in Project_API", error);
     return { success: false, message: "Error in API call" };
   }
 };

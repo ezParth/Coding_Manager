@@ -2,14 +2,29 @@ import { RequestHandler } from "express";
 import { handleMultipartFormData } from "../config/BusboyMPFD"; // Make sure function name is correct
 import Project from "../models/Project.model";
 import User from "../models/User";
+import uploadToS3 from "../aws/uploadToS3";
 
 export const saveProject = async (req: any, res: any) => {
+  const fileUrls: string [] = [];
   try {
-    const { fields, files } = await handleMultipartFormData(req);
+    const { fields, fileData } = await handleMultipartFormData(req);
     const userId = req.user.id;
+    const fileEntries = Object.entries(fileData);
 
-    console.log("Fields:", fields);
-    console.log("Files:", files);
+    var i = 0;
+    fileEntries.forEach(async ([filename, file]) => {
+      const s3Url = await uploadToS3(file.data, filename, file.mimeType);
+      if(s3Url.success && s3Url.url != undefined){
+        fileUrls.push(s3Url?.url);
+      }else{
+        throw new Error("ERROR IN SAVING IMAGE TO S3 => * ask jeff bezos to fix it!")
+      }
+  })
+
+    // console.log("Fields:", fields);
+    // console.log("Files:", files);
+
+
 
     const newProject = await Project.create({
       projectTitle: fields.title,
@@ -18,7 +33,7 @@ export const saveProject = async (req: any, res: any) => {
       projectTwitter: fields?.twitterLink,
       projectLinkedIn: fields?.linkedInLink,
       projectSlack: fields?.slackLink,
-      projectImages: [files?.[0], files?.[1]],
+      projectImages: [fileUrls?.[0], fileUrls?.[1]],
     });
 
     const user = await User.findById(userId);
@@ -40,7 +55,8 @@ export const saveProject = async (req: any, res: any) => {
         $inc: { NumberOfProjects: 1 },
       });
     } catch (error: any) {
-      throw new error();
+      console.log("ERROR DURING SAVING THE PROJECT INTO USER: ", error);
+      
     }
 
     res
@@ -49,7 +65,7 @@ export const saveProject = async (req: any, res: any) => {
         success: true,
         message: "Project data saved successfully",
         fields,
-        files,
+        fileUrls,
       });
   } catch (error) {
     console.log("ERROR IN SAVEPROJECT", error);
@@ -83,7 +99,7 @@ export const getProjects = async (req: any, res: any) => {
         .json({ message: "User not found!", success: false });
     }
 
-    const numOfProjects = await user.NumberOfProjects;
+    const numOfProjects = user.NumberOfProjects;
     if (numOfProjects == 0) {
       return res
         .status(404)
@@ -98,6 +114,7 @@ export const getProjects = async (req: any, res: any) => {
       message: "Projects fetched successfully",
       success: true,
       projects: user.Projects,
+      numberOfProjects: numOfProjects
     });
   } catch (error: any) {
     console.log(error);
