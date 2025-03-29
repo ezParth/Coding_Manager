@@ -60,8 +60,8 @@ public/static/
 /.jest/
 
 # Docker files
-docker-compose.yml
-Dockerfile
+# docker-compose.yml
+# Dockerfile
 
 # GitHub Actions
 .github/workflows/

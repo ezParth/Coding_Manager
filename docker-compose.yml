@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./server
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/src/config/.env
+    volumes:
+      - ./server:/app
+    depends_on:
+      - client
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data: # i will use this in future btw
