@@ -80,3 +80,9 @@ __pycache__/
 .settings/
 *.sublime-workspace
 *.sublime-project
+
+#build files
+# Ignore compiled files
+dist/
+build/
+
