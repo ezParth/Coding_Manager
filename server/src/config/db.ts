@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path = require("path");
 
 dotenv.config({ path: path.resolve(__dirname, "../config/.env") });
+console.log("MONGO_URI",process.env.MONGO_URI)
 
 const connectDB = async () => {
   try {
