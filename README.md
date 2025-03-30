@@ -35,7 +35,7 @@
 
 ### **1️⃣ Clone the Repository**  
 ```sh
-git clone https://github.com/your-username/Coding_Manager.git
+git clone https://github.com/ezParth/Coding_Manager.git
 cd Coding_Manager
 
 cd server
