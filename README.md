@@ -24,7 +24,32 @@
 
 ## 🚀 Getting Started  
 
+## Add .env file in server/src/config
+- MONGO_URI=MONGO_DB_URI
+- KEY=CODEFORCES_KEY
+- SECRET=CODEFORCES_SECRET
+- JWT_SECRET=JWT_SECRET
+- ACCESS_KEY=AWS_S3_ACCESS_KEY
+- SECRET_ACCESS_KEY=AWS_S3_SECRET_ACCESS_KEY
+- S3_BUCKET=YOUR_BUCKET_NAME
+
 ### **1️⃣ Clone the Repository**  
 ```sh
 git clone https://github.com/your-username/Coding_Manager.git
 cd Coding_Manager
+
+```sh
+cd server
+npm i
+
+```sh
+cd client
+npm i
+
+```sh
+cd server
+npm run dev
+
+```sh
+cd client
+npm run dev
