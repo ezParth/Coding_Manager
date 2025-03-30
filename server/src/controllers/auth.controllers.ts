@@ -25,7 +25,7 @@ export const signup: RequestHandler = async (req, res, next) => {
         await newUser.save();
 
         const token = jwt.sign({ id: newUser._id, username: newUser.username }, JWT_SECRET, {
-            expiresIn: "1h",
+            // expiresIn: "1h",
         });
 
         res.cookie("token", token, {
@@ -58,7 +58,7 @@ export const login: RequestHandler = async (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, {
-            expiresIn: "1h",
+            // expiresIn: "1h",
         });
 
         res.cookie("token", token, {

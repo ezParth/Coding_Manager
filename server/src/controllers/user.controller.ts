@@ -10,32 +10,6 @@ export const saveProject = async (req: any, res: any) => {
     const { fields, fileData } = await handleMultipartFormData(req);
     const userId = req.user.id;
     const fileEntries = Object.entries(fileData);
-
-    var i = 0;
-    fileEntries.forEach(async ([filename, file]) => {
-      const s3Url = await uploadToS3(file.data, filename, file.mimeType);
-      if(s3Url.success && s3Url.url != undefined){
-        fileUrls.push(s3Url?.url);
-      }else{
-        throw new Error("ERROR IN SAVING IMAGE TO S3 => * ask jeff bezos to fix it!")
-      }
-  })
-
-    // console.log("Fields:", fields);
-    // console.log("Files:", files);
-
-
-
-    const newProject = await Project.create({
-      projectTitle: fields.title,
-      projectDescription: fields.description,
-      projectLink: fields?.websiteLink,
-      projectTwitter: fields?.twitterLink,
-      projectLinkedIn: fields?.linkedInLink,
-      projectSlack: fields?.slackLink,
-      projectImages: [fileUrls?.[0], fileUrls?.[1]],
-    });
-
     const user = await User.findById(userId);
     if (!user) {
       return res
@@ -46,6 +20,30 @@ export const saveProject = async (req: any, res: any) => {
           success: false,
         });
     }
+
+    var i = 0;
+    for (const [filename, file] of fileEntries) {
+      const s3Url = await uploadToS3(file.data, filename, file.mimeType, user.username, fields.title);
+      if (s3Url.success && s3Url.url) {
+        fileUrls.push(s3Url.url);
+      } else {
+        throw new Error("ERROR IN SAVING IMAGE TO S3 => * ask Jeff Bezos to fix it!");
+      }
+    }    
+
+    // console.log("Fields:", fields);
+    // console.log("Files:", files);
+    
+    const newProject = await Project.create({
+      projectTitle: fields.title,
+      projectDescription: fields.description,
+      projectLink: fields?.websiteLink,
+      projectTwitter: fields?.twitterLink,
+      projectLinkedIn: fields?.linkedInLink,
+      projectSlack: fields?.slackLink,
+      projectImages: [fileUrls?.[0], fileUrls?.[1]],
+    });
+    
 
     const numOfProjects = user.NumberOfProjects;
 

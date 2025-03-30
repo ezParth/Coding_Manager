@@ -3,6 +3,7 @@ import { UserContextProvider } from "./UserContext";
 import { CPContextProvider } from "./CPContext";
 import { CodeforcesProvider } from "./CodeforcesContext";
 import { ProjectContextProvider } from "./ProjectContext";
+import { ProjectProvider } from "./UserProjectContext";
 
 interface Props {
   children: ReactNode;
@@ -10,6 +11,7 @@ interface Props {
 
 const ContextsProvider = ({ children }: Props) => {
   return (
+    <ProjectProvider>
     <ProjectContextProvider>
     <CodeforcesProvider>
       <UserContextProvider>
@@ -17,6 +19,7 @@ const ContextsProvider = ({ children }: Props) => {
       </UserContextProvider>
     </CodeforcesProvider>
     </ProjectContextProvider>
+    </ProjectProvider>
   );
 };
 
