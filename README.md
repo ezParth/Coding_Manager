@@ -38,18 +38,14 @@
 git clone https://github.com/your-username/Coding_Manager.git
 cd Coding_Manager
 
-```sh
 cd server
 npm i
 
-```sh
 cd client
 npm i
 
-```sh
 cd server
 npm run dev
 
-```sh
 cd client
 npm run dev
