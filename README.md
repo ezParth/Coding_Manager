@@ -33,7 +33,7 @@
 - SECRET_ACCESS_KEY=AWS_S3_SECRET_ACCESS_KEY
 - S3_BUCKET=YOUR_BUCKET_NAME
 
-### **1️⃣ Clone the Repository**  
+### **1️⃣ Clone the Repository And Run The Following Commands**  
 ```sh
 git clone https://github.com/ezParth/Coding_Manager.git
 cd Coding_Manager
