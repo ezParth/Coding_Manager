@@ -14,14 +14,14 @@ const loginAPI = async (
   try {
     const res = await axios.post(
       LOGIN_API,
-      { username, password }, // Body
+      { username, password }, // Request body
       {
         headers: {
           "Content-Type": "application/json",
-          credentials: "true",
         },
+        withCredentials: true,
       }
-    );
+    );    
     if (res.data.success) {
       localStorage.setItem("username", username);
       try {

@@ -49,33 +49,31 @@ const Login: React.FC = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email Field (Common for Login & Signup) */}
           <div className="gap-x-10">
-            <label className="text-gray-300 mb-1 mr-8">Email</label>
+            <label className="text-gray-300 mb-1 mr-8">Username</label>
+            
             <input
-              type="text"
-              className="w-full px-4 py-2 bg-[#101010] text-white rounded-md border border-gray-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Username Field (Only for Signup) */}
-          {!isLoggingIn && (
-            <div>
-              <label className="block text-gray-300 mb-1">Username</label>
-              <input
                 type="text"
                 className="w-full px-4 py-2 bg-[#101010] text-white rounded-md border border-gray-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
+          </div>
+
+          {!isLoggingIn && (
+            <div>
+              <label className="block text-gray-300 mb-1">Email</label>
+              <input
+              type="text"
+              className="w-full px-4 py-2 bg-[#101010] text-white rounded-md border border-gray-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
             </div>
           )}
 
-          {/* Password Field */}
           <div>
             <label className="block text-gray-300 mb-1">Password</label>
             <input
@@ -87,7 +85,6 @@ const Login: React.FC = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-orange-500 hover:bg-orange-600 transition-colors text-white font-semibold py-2 rounded-md shadow-md"
@@ -96,7 +93,6 @@ const Login: React.FC = () => {
           </button>
         </form>
 
-        {/* Toggle Between Login & Signup */}
         <p className="text-center text-gray-400 mt-4">
           {isLoggingIn ? "Don't have an account?" : "Already have an account?"}{" "}
           <span

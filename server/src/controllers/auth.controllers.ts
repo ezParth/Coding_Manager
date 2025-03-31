@@ -43,11 +43,19 @@ export const signup: RequestHandler = async (req, res, next) => {
 
 export const login: RequestHandler = async (req, res, next) => {
     try {
+        console.log('Hitting the logging in page!')
         const { username, password } = req.body;
+        console.log("REQ>BODY: ", req.body)
+        console.log(username, ", ", password)
+        
+        if(!username || !password){
+            res.status(400).json({ message: "Please provide username and password", success: false })
+            return;
+        }
 
         const user = await User.findOne({ username });
         if (!user) {
-            res.status(400).json({ message: "Invalid username or password" });
+            res.status(400).json({ message: "Invalid username or password", success: false });
             return;
         }
 

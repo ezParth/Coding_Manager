@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
-router.get("/codeforces", isAuthenticated,getCodeforcesInfo);
+router.get("/codeforces",getCodeforcesInfo);
 router.post("/saveProject", isAuthenticated,saveProject);
 router.get("/getProjects", isAuthenticated, getProjects)
 
