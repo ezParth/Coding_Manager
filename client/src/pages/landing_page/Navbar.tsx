@@ -19,6 +19,10 @@ const Navbar: React.FC = () => {
   const handleResumeRouter = () => {
     navigate("/resume")
   }
+
+  const handleAboutRouter = () => {
+    navigate("/about")
+  }
   return (
     <div className="">
       <div className="w-full h-14 flex items-center px-4 shadow-md border-b-[0.5px] border-gray-800">
@@ -34,7 +38,7 @@ const Navbar: React.FC = () => {
           </span>
         </div>
         <div className="flex space-x-12 mr-44">
-          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
+          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold" onClick={handleAboutRouter}>
             About
           </span>
           <span

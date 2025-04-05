@@ -1,4 +1,61 @@
 @import "tailwindcss";
-:root {
-  background-color: black;
+
+body {
+  margin: 0;
+  padding: 0;
+
+  /* 🎨 Improved dark gradient background */
+  background: linear-gradient(135deg, #0f0f0f 0%, #090d1f 50%, #050505 100%);
+  background-attachment: fixed;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* ❌ Remove mouse-follow glow */
+body::before {
+  display: none;
+}
+
+/* 🎈 Smooth floating animation (can be used on glows or cards) */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ✨ Ambient pulsing glows */
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse-slower {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 12s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 18s ease-in-out infinite;
 }

@@ -7,6 +7,7 @@ import Project_Dashboard from "./pages/Project/Project_Dashboard";
 import Resume from "./pages/Resume/Resume";
 import ResumeComp from "./pages/Resume/Components/CreateResume";
 import ViewResume from "./pages/Resume/Components/ViewResume";
+import CodingManagerCard from "./pages/landing_page/About";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
           {path: "/upload", element: <Project_Dashboard />},
           { path: "login", element: <Login /> },
           { path: "signup", element: <Login /> },
+          { path: "about", element: <CodingManagerCard /> },
           { path: "/resume", element: <Resume />, children: [
             {path: "upload", element: <ResumeComp />},
             {path: "", element: <ViewResume />},

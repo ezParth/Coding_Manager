@@ -1,107 +1,121 @@
 import React, { useState } from "react";
 import loginAPI from "../api/login";
-import { useNavigate } from "react-router-dom";
 import signupAPI from "../api/signup";
+import { useNavigate } from "react-router-dom";
+import image1 from "../assets/logo/mohammad-rahmani-q1p2DrLBtko-unsplash.jpg";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(false); // Default to login mode
+  const [isLoggingIn, setIsLoggingIn] = useState(true);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isLoggingIn) {
-      //handling login
-      try {
-        const data = await loginAPI(username, password);
-        if (data.success) {
-          console.log(data.message);
-          navigate("/");
-        } else {
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log("Error in login", error);
+    try {
+      const data = isLoggingIn
+        ? await loginAPI(username, password)
+        : await signupAPI(username, email, password);
+
+      if (data.success) {
+        console.log(data.message);
+        navigate("/");
+      } else {
+        console.log(data.message);
       }
-    } else {
-      //handling signup
-      try {
-        const data = await signupAPI(username, email, password);
-        if (data.success) {
-          console.log(data.message);
-          navigate("/");
-        } else {
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.log("an unexpected error ocuured: ", error);
-      }
+    } catch (error) {
+      console.log("An error occurred:", error);
     }
   };
 
   return (
-    <div className="flex  justify-center mb-200 min-h-100 mt-15 bg-black px-4 overflow-y-hidden">
-      <div className="bg-black border-1 border-gray-800 p-8 rounded-xl shadow-lg w-full max-w-200">
-        <h2 className="text-4xl font-bold text-white font-sans text-center mb-6">
-          {isLoggingIn ? "Login" : "Create an Account"}
-        </h2>
+    <div className="flex min-h-screen text-white font-mono">
+      {/* Left - Image with message */}
+      <div
+        className="hidden lg:flex w-1/2 bg-cover bg-center relative"
+        style={{ backgroundImage: `url(${image1})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/60 to-transparent z-10" />
+        <div className="relative z-20 w-full h-full flex items-center justify-center p-12 text-center">
+          <div className="space-y-6">
+            <h1 className="text-5xl font-extrabold leading-snug text-white drop-shadow-2xl">
+              Welcome Back <br /> to <span className="text-orange-400">Your Space</span>
+            </h1>
+            <p className="text-lg text-gray-300 max-w-md mx-auto">
+              Unlock your digital journey and manage your profile like a pro.
+            </p>
+          </div>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="gap-x-10">
-            <label className="text-gray-300 mb-1 mr-8">Username</label>
-            
-            <input
+      {/* Right - Form */}
+      <div className="flex w-full lg:w-1/2 justify-center items-center bg-black px-4 py-12">
+        <div className="bg-[#121212] border border-gray-800 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-lg">
+          <h2 className="text-4xl font-bold mb-6 text-center text-orange-400 tracking-wide">
+            {isLoggingIn ? "Login" : "Create Account"}
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">Username</label>
+              <input
                 type="text"
-                className="w-full px-4 py-2 bg-[#101010] text-white rounded-md border border-gray-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                className="w-full px-4 py-2 bg-[#1a1a1a] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
-          </div>
-
-          {!isLoggingIn && (
-            <div>
-              <label className="block text-gray-300 mb-1">Email</label>
-              <input
-              type="text"
-              className="w-full px-4 py-2 bg-[#101010] text-white rounded-md border border-gray-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
             </div>
-          )}
 
-          <div>
-            <label className="block text-gray-300 mb-1">Password</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 bg-[#101010] text-white rounded-md border border-gray-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            {!isLoggingIn && (
+              <div>
+                <label className="block text-sm text-gray-400 mb-1">Email</label>
+                <input
+                  type="email"
+                  className="w-full px-4 py-2 bg-[#1a1a1a] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">Password</label>
+              <input
+                type="password"
+                className="w-full px-4 py-2 bg-[#1a1a1a] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 transition duration-300 text-white font-bold py-2 rounded-md shadow-lg hover:shadow-orange-400/30"
+            >
+              {isLoggingIn ? "Enter the Code" : "Create Account"}
+            </button>
+          </form>
+
+          <div className="mt-8 text-sm text-center text-gray-500">
+            <span>{isLoggingIn ? "Don't have an account?" : "Already a user?"}</span>{" "}
+            <button
+              onClick={() => setIsLoggingIn((prev) => !prev)}
+              className="text-orange-400 hover:underline ml-1"
+            >
+              {isLoggingIn ? "Sign up here" : "Login here"}
+            </button>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 transition-colors text-white font-semibold py-2 rounded-md shadow-md"
-          >
-            {isLoggingIn ? "Login" : "Sign Up"}
-          </button>
-        </form>
+          <hr className="my-6 border-gray-700" />
 
-        <p className="text-center text-gray-400 mt-4">
-          {isLoggingIn ? "Don't have an account?" : "Already have an account?"}{" "}
-          <span
-            onClick={() => setIsLoggingIn((prev) => !prev)}
-            className="text-orange-400 hover:underline cursor-pointer"
-          >
-            {isLoggingIn ? "Sign up" : "Login"}
-          </span>
-        </p>
+          <p className="text-xs text-gray-600 text-center">
+            Crafted for coders. Built with ❤️
+          </p>
+        </div>
       </div>
     </div>
   );
