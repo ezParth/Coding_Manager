@@ -9,7 +9,7 @@ const IndividualProjects: React.FC = () => {
         <div className="flex flex-col gap-10 w-full max-w-5xl mx-auto py-8">
             {/* Fetch Button */}
             <button
-                className="bg-amber-500 text-xl font-semibold text-black px-6 py-3 rounded-lg hover:bg-amber-400 transition-all duration-300"
+                className="bg-amber-500 text-xl font-semibold text-black px-6 py-3 rounded-lg hover:bg-amber-400 transition-all duration-300 cursor-pointer"
                 onClick={fetchProjects}
             >
                 GET PROJECTS

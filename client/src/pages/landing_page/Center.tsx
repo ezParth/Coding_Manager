@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../styles/Fonts.css";
 import { CPContext } from "../../Context/CPContext";
 import codeforces_API from "../../api/codeforces";
@@ -22,10 +22,21 @@ const Center: React.FC = () => {
     setProfilePic,
   } = useContext(CodeforcesContext);
 
+  useEffect(() => {
+    handleSetHandle()
+  }, [])
+
   const handleSetHandle = async () => {
     try {
       setIsLoading(true);
-      const res = await codeforces_API(cfHandle);
+      const handle = localStorage.getItem('CFHANDLE')
+      let res
+      if(handle){
+         res = await codeforces_API(handle);
+      }else{
+         res = await codeforces_API(cfHandle);
+      }
+
       console.log("response here", res.numberOfProbelms);
       console.log("response here", res.data);
 
@@ -52,6 +63,21 @@ const Center: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  const handleCFHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setcfHandle(value);
+    localStorage.setItem("CFHANDLE", value);
+  };
+
+  useEffect(() => {
+    const savedHandle = localStorage.getItem("CFHANDLE");
+    if (savedHandle) {
+      setcfHandle(savedHandle);
+    }
+  }, [setcfHandle]);
+  
+  
 
   const resetValues = () => {
     setName("");
@@ -100,7 +126,8 @@ const Center: React.FC = () => {
             placeholder="Add your Codeforces Profile"
             className="w-4/5 p-4 text-gray-200 bg-transparent border-2 border-gray-600 placeholder-gray-700 font-medium rounded-md focus:outline-none hover:border-gray-300"
             value={cfHandle}
-            onChange={(e) => setcfHandle(e.target.value)}
+            // onChange={(e) => setcfHandle(e.target.value)}
+            onChange={handleCFHandle}
           />
 
           {/* Leetcode Input */}
