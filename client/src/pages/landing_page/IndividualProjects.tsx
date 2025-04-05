@@ -10,7 +10,7 @@ const IndividualProjects: React.FC = () => {
       {/* Fetch Button */}
       <div className="flex justify-center">
         <button
-          className="bg-gradient-to-r from-amber-500 to-orange-400 text-black text-lg font-bold px-8 py-3 rounded-full hover:from-amber-400 hover:to-orange-300 transition-all shadow-lg hover:scale-105"
+          className="bg-gradient-to-r from-amber-500 to-orange-400 text-black text-lg font-bold px-8 py-3 rounded-full hover:from-amber-400 hover:to-orange-300 transition-all shadow-lg hover:scale-105 cursor-pointer"
           onClick={fetchProjects}
         >
           🚀 GET PROJECTS

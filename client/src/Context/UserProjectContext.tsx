@@ -30,9 +30,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         }
     };
 
-    useEffect(() => {
-        fetchProjects();
-    }, []);
+    // useEffect(() => {
+    //     fetchProjects();
+    // }, []);
 
     return (
         <ProjectContext.Provider value={{ userProjects, fetchProjects }}>

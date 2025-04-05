@@ -15,6 +15,10 @@ const Navbar: React.FC = () => {
   const handleProjectNavigation = () => {
     navigate("/upload")
   }
+
+  const handleResumeRouter = () => {
+    navigate("/resume")
+  }
   return (
     <div className="">
       <div className="w-full h-14 flex items-center px-4 shadow-md border-b-[0.5px] border-gray-800">
@@ -39,7 +43,7 @@ const Navbar: React.FC = () => {
           >
             Login
           </span>
-          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold">
+          <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold" onClick={handleResumeRouter}>
             Resume
           </span>
           <span className="text-gray-400 text-[20px] cursor-pointer hover:text-gray-300 font-sans font-bold" onClick={handleHome}>

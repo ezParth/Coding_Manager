@@ -8,6 +8,7 @@ export interface IUser extends Document {
   defaultLeetcodeId: string
   Projects: [ObjectId]
   NumberOfProjects: number
+  Resume: ObjectId
 }
 
 const userSchema = new Schema<IUser>({
@@ -18,6 +19,7 @@ const userSchema = new Schema<IUser>({
   defaultLeetcodeId: { type: String },
   Projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
   NumberOfProjects: { type: Number, default: 0 },
+  Resume: { type: mongoose.Schema.Types.ObjectId, ref: 'Resume' }
 });
 
 const User = mongoose.model<IUser>("User", userSchema);
