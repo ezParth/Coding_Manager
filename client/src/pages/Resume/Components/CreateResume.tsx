@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useResume } from "../../../Context/ResumeContext";
+import { saveResume } from "../../../api/SaveResume.api";
+import { toast } from 'react-hot-toast';
 
 const ResumeComp: React.FC = () => {
   // const [formData, setFormData] = useState<any>({});
@@ -11,6 +13,20 @@ const ResumeComp: React.FC = () => {
     const { name, value } = e.target;
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
+
+  const handleSave = async () => {
+    try {
+      const response = await saveResume(formData);
+      toast.dismiss();
+      toast.success("✅ Resume saved successfully!");
+      console.log("Resume saved!", response?.message);
+    } catch (err: any) {
+      toast.dismiss();
+      toast.error(err.response?.data?.message || "❌ Failed to save resume.");
+      console.error("ERROR IN HANDLESAVE RESUME: ", err);
+    }
+  };
+  
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -107,6 +123,7 @@ const ResumeComp: React.FC = () => {
           whileTap={{ scale: 0.98 }}
           type="submit"
           className="block w-full py-3 mt-6 font-semibold bg-gradient-to-r from-purple-600 to-purple-800 rounded-xl hover:from-purple-700 hover:to-purple-900 transition duration-300"
+          onClickCapture={handleSave}
         >
           🚀 Submit Resume
         </motion.button>
