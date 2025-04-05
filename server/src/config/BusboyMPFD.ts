@@ -10,6 +10,8 @@ export const handleMultipartFormData = (req: Request): Promise<{ fields: Record<
     const fileUrls: string[] = [];
     const uploadPromises: Promise<void>[] = [];
 
+    console.log("filename");
+
     try {
       const bb = busboy({ headers: req.headers });
 

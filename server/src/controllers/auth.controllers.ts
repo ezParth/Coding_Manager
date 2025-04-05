@@ -12,6 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export const signup: RequestHandler = async (req, res, next) => {
     try {
+        console.log("hjhfgvhtfhfgytdhdxtfcgrfxfg")
         const { username, email, password } = req.body;
 
         const existingUser = await User.findOne({ email });

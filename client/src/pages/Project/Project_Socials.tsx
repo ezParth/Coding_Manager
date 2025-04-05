@@ -85,7 +85,7 @@ const Project_Socials: React.FC = () => {
         {/* Left Side (30%) */}
         <div className="w-3/10  flex items-center justify-center bg-gray-200 border-r-2 border-gray-400">
           <p className="text-black  text-lg font-semibold flex items-center gap-2">
-            Slack
+            LinkedIn
             <img src={linkedinLogo} alt="GitHub Logo" className="w-6 h-6" />
           </p>
         </div>
@@ -93,7 +93,7 @@ const Project_Socials: React.FC = () => {
         {/* Right Side (70%) */}
         <div className="w-7/10 flex items-center justify-center p-6">
           {/* Add content here */}
-          <label className="text-blue-500 font-bold pr-2">@slack:</label>
+          <label className="text-blue-500 font-bold pr-2">@linkedIn:</label>
           <input
             type="text"
             value={linkedInLink}

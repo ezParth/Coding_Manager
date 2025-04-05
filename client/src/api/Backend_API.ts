@@ -4,8 +4,8 @@
 // export const PROJECT_API = "http://localhost:3000/parth/cp/saveProject"
 // export const GET_PROJECT_API = "http://localhost:3000/parth/cp/getProjects"
 
-// const APP_IP = "127.0.0.1";
-const APP_IP = "65.1.200.21";
+const APP_IP = "127.0.0.1";
+// const APP_IP = "65.1.200.21";
 
 export const LOGIN_API = `http://${APP_IP}:3000/parth/cp/login`;
 export const SIGNUP_API = `http://${APP_IP}:3000/parth/cp/signup`;

@@ -5,6 +5,7 @@ import User from "../models/User";
 import uploadToS3 from "../aws/uploadToS3";
 
 export const saveProject = async (req: any, res: any) => {
+  console.log("HELOO WORLDrsrs")
   const fileUrls: string [] = [];
   try {
     const { fields, fileData } = await handleMultipartFormData(req);
@@ -31,7 +32,7 @@ export const saveProject = async (req: any, res: any) => {
       }
     }    
 
-    // console.log("Fields:", fields);
+    console.log("Fields:", fields);
     // console.log("Files:", files);
     
     const newProject = await Project.create({

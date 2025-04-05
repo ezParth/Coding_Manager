@@ -19,8 +19,8 @@ const signupAPI = async (
       {
         headers: {
           "Content-Type": "application/json",
-          credentials: "true",
         },
+        withCredentials: true,
       }
     );
     if (res.data.success) {

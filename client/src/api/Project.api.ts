@@ -36,6 +36,8 @@ const Project_API = async (
     // Retrieve token from localStorage
     const token = localStorage.getItem("token");
 
+    console.log("GithubLink: ", githubLink)
+
     const res = await axios.post(PROJECT_API, formData, {
       headers: {
         Authorization: token ? `Bearer ${token}` : "",
