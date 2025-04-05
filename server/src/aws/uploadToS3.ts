@@ -77,7 +77,7 @@ const uploadToS3 = async (
     const signedUrl = await getSignedUrl(
       s3Client,
       new GetObjectCommand({ Bucket: bucketName, Key: fileKey }),
-      { expiresIn: 7 * 24 * 60 * 60 * 20 },
+      { expiresIn: 7 * 24 * 60 },
     );
 
     console.log("Upload successful:", signedUrl);
