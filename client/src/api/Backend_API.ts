@@ -14,6 +14,7 @@ export const PROJECT_API = `http://${APP_IP}:3000/parth/cp/saveProject`;
 export const GET_PROJECT_API = `http://${APP_IP}:3000/parth/cp/getProjects`;
 export const POST_RESUME_API = `http://${APP_IP}:3000/parth/cp/saveResume`;
 export const GET_RESUME_API = `http://${APP_IP}:3000/parth/cp/getProject`;
+export const IS_ADMIN = `http://${APP_IP}:3000/parth/cp/isAdmin`;
 
 
 // export const LOGIN_API = "http://43.204.140.42:3000/parth/cp/login"

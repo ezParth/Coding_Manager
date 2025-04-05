@@ -153,7 +153,7 @@ export const getResume = async (req: any, res: any) => {
         .json({ message: "User Not Found! Please login", success: false });
     }
 
-    const user = await User.findById(userId).populate("Resume");
+    const user = await User.findById(userId).populate({path: "Resume", select: "-_id -__v -createdAt -updatedAt -userId"});
     if (!user) {
       return res
         .status(404)
@@ -173,7 +173,7 @@ export const getResume = async (req: any, res: any) => {
       .json({
         message: "Resume fetched successfully!",
         success: true,
-        Reusme: resume,
+        Resume: resume,
       });
   } catch (error) {
     console.log("ERROR IN GETRESUME FUNCTION: ", error);
@@ -182,3 +182,19 @@ export const getResume = async (req: any, res: any) => {
       .json({ message: "Internal Server Error", success: false });
   }
 };
+
+export const isAdmin = (req: any, res: any) => {
+  try {
+    const userId = req.user.id;
+    console.log("USERID HERE: ", userId)
+    if(!userId) {
+      console.log("NOT ONE IS CALLED")
+      return res.status(200).json({ message: "The Requested User is not an Admin", success: true, IsAllowed: false })
+    }
+    console.log("THIS ONE BRO")
+    res.status(200).json({ message: "The Requested User is Admin", success: true, IsAllowed: true })
+  } catch (error) {
+    console.log("ERROR IN ISADMIN: ", error);
+    return res.status(500).json({ message: "Internal Sever Error" })
+  }
+}

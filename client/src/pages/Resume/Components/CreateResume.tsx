@@ -1,13 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useResume } from "../../../Context/ResumeContext";
 import { saveResume } from "../../../api/SaveResume.api";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useResumeUpdateContext } from "../../../Context/ResumeUpdateContext";
+import { getResume } from "../../../api/GetResume.api";
+
+// Heroicons (alternative to react-icons)
+import {
+  UserIcon,
+  BriefcaseIcon,
+  AcademicCapIcon,
+  WrenchScrewdriverIcon,
+  FolderIcon,
+  StarIcon,
+  LanguageIcon,
+  TrophyIcon,
+  PaintBrushIcon,
+  ArrowUpTrayIcon,
+  FlagIcon
+} from "@heroicons/react/24/solid";
 
 const ResumeComp: React.FC = () => {
-  // const [formData, setFormData] = useState<any>({});
+  const navigate = useNavigate();
   const { data: formData, setData: setFormData } = useResume();
   const [file, setFile] = useState<File | null>(null);
+  const { IsUpdating, setIsUpdating } = useResumeUpdateContext();
+
+  useEffect(() => {
+    const handleResumeUpdate = async () => {
+      const response = await getResume();
+      if (response?.Resume) {
+        setFormData(response.Resume);
+        console.log("RESUME DATA >>>>>>>>>>>>> ", response.Resume);
+      }
+      setIsUpdating(false);
+    };
+
+    if (IsUpdating) {
+      handleResumeUpdate();
+    }
+  }, [IsUpdating, setIsUpdating, setFormData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -20,13 +54,13 @@ const ResumeComp: React.FC = () => {
       toast.dismiss();
       toast.success("✅ Resume saved successfully!");
       console.log("Resume saved!", response?.message);
+      navigate("/resume");
     } catch (err: any) {
       toast.dismiss();
       toast.error(err.response?.data?.message || "❌ Failed to save resume.");
       console.error("ERROR IN HANDLESAVE RESUME: ", err);
     }
   };
-  
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -68,20 +102,25 @@ const ResumeComp: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.05 * idx }}
             className="border border-purple-700 p-6 rounded-2xl bg-[#1e293b] shadow-md hover:shadow-lg transition-shadow duration-300"
           >
-            <h2 className="text-2xl font-semibold mb-4 text-purple-300">{section.title}</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-purple-300 flex items-center gap-2">
+              <span className="w-6 h-6">{section.icon}</span>
+              {section.title}
+            </h2>
+
             <div className={`grid ${section.grid || "grid-cols-1"} gap-4`}>
               {section.fields.map((field, fieldIdx) => {
                 const placeholder =
                   field.placeholder ||
                   (field.type === "file"
                     ? "Upload your resume (PDF/JPG)"
-                    : `Enter your ${field.name.replace(/([A-Z])/g, " $1").toLowerCase()}`);
+                    : `Enter your ${field.name?.replace(/([A-Z])/g, " $1").toLowerCase()}`);
 
                 if (field.type === "textarea") {
                   return (
                     <motion.textarea
                       key={fieldIdx}
                       name={field.name}
+                      value={formData[field.name] || ""}
                       rows={field.rows || 3}
                       placeholder={placeholder}
                       onChange={handleChange}
@@ -105,7 +144,9 @@ const ResumeComp: React.FC = () => {
                   return (
                     <motion.input
                       key={fieldIdx}
+                      type="text"
                       name={field.name}
+                      value={formData[field.name] || ""}
                       placeholder={placeholder}
                       onChange={handleChange}
                       whileFocus={{ scale: 1.01 }}
@@ -134,10 +175,10 @@ const ResumeComp: React.FC = () => {
 
 export default ResumeComp;
 
-// Sections data
 const sections = [
   {
-    title: "👤 Personal Information",
+    title: "Personal Information",
+    icon: <UserIcon className="text-purple-400" />,
     grid: "grid-cols-2",
     fields: [
       { name: "fullName", placeholder: "Full Name" },
@@ -151,57 +192,67 @@ const sections = [
     ],
   },
   {
-    title: "🎯 Career Objective",
-    fields: [{ name: "objective", placeholder: "Your career objective...", type: "textarea" }],
+    title: "Career Objective",
+    icon: <FlagIcon className="text-purple-400" />,
+    fields: [{ name: "objective", type: "textarea", placeholder: "Your career objective..." }],
   },
   {
-    title: "🎓 Education",
+    title: "Education",
+    icon: <AcademicCapIcon className="text-purple-400" />,
     grid: "grid-cols-2",
     fields: [
-      { name: "school", placeholder: "School" },
-      { name: "college", placeholder: "College/University" },
-      { name: "degree", placeholder: "Degree" },
-      { name: "cgpa", placeholder: "CGPA/Percentage" },
-      { name: "passingYear", placeholder: "Year of Graduation" },
+      { name: "school" },
+      { name: "college" },
+      { name: "degree" },
+      { name: "cgpa" },
+      { name: "passingYear" },
     ],
   },
   {
-    title: "💼 Work Experience",
+    title: "Work Experience",
+    icon: <BriefcaseIcon className="text-purple-400" />,
     grid: "grid-cols-2",
     fields: [
-      { name: "company", placeholder: "Company Name" },
-      { name: "jobTitle", placeholder: "Job Title" },
-      { name: "jobStart", placeholder: "Start Date" },
-      { name: "jobEnd", placeholder: "End Date" },
-      { name: "jobDescription", placeholder: "Job Responsibilities...", type: "textarea" },
+      { name: "company" },
+      { name: "jobTitle" },
+      { name: "jobStart" },
+      { name: "jobEnd" },
+      { name: "jobDescription", type: "textarea" },
     ],
   },
   {
-    title: "🛠️ Skills",
+    title: "Skills",
+    icon: <WrenchScrewdriverIcon className="text-purple-400" />,
     fields: [{ name: "skills", placeholder: "e.g. JavaScript, Python, SQL" }],
   },
   {
-    title: "🚧 Projects",
-    fields: [{ name: "projects", placeholder: "Describe your projects...", type: "textarea" }],
+    title: "Projects",
+    icon: <FolderIcon className="text-purple-400" />,
+    fields: [{ name: "projects", type: "textarea" }],
   },
   {
-    title: "📜 Certifications",
-    fields: [{ name: "certifications", placeholder: "Mention your certifications...", type: "textarea" }],
+    title: "Certifications",
+    icon: <StarIcon className="text-purple-400" />,
+    fields: [{ name: "certifications", type: "textarea" }],
   },
   {
-    title: "🌐 Languages Known",
+    title: "Languages Known",
+    icon: <LanguageIcon className="text-purple-400" />,
     fields: [{ name: "languages", placeholder: "e.g. English, Hindi, Spanish" }],
   },
   {
-    title: "🏆 Achievements",
-    fields: [{ name: "achievements", placeholder: "List your notable achievements...", type: "textarea" }],
+    title: "Achievements",
+    icon: <TrophyIcon className="text-purple-400" />,
+    fields: [{ name: "achievements", type: "textarea" }],
   },
   {
-    title: "🎨 Interests / Hobbies",
+    title: "Interests / Hobbies",
+    icon: <PaintBrushIcon className="text-purple-400" />,
     fields: [{ name: "interests", placeholder: "e.g. Reading, Chess, Coding" }],
   },
   {
-    title: "📄 Upload Resume",
+    title: "Upload Resume",
+    icon: <ArrowUpTrayIcon className="text-purple-400" />,
     fields: [{ type: "file" }],
   },
 ];

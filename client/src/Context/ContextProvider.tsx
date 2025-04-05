@@ -5,6 +5,7 @@ import { CodeforcesProvider } from "./CodeforcesContext";
 import { ProjectContextProvider } from "./ProjectContext";
 import { ProjectProvider } from "./UserProjectContext";
 import { ResumeProvider } from "./ResumeContext";
+import { ResumeUpdateContextProvider } from "./ResumeUpdateContext";
 
 interface Props {
   children: ReactNode;
@@ -12,17 +13,19 @@ interface Props {
 
 const ContextsProvider = ({ children }: Props) => {
   return (
-    <ResumeProvider>
-      <ProjectProvider>
-        <ProjectContextProvider>
-          <CodeforcesProvider>
-            <UserContextProvider>
-              <CPContextProvider>{children}</CPContextProvider>
-            </UserContextProvider>
-          </CodeforcesProvider>
-        </ProjectContextProvider>
-      </ProjectProvider>
-    </ResumeProvider>
+    <ResumeUpdateContextProvider>
+      <ResumeProvider>
+        <ProjectProvider>
+          <ProjectContextProvider>
+            <CodeforcesProvider>
+              <UserContextProvider>
+                <CPContextProvider>{children}</CPContextProvider>
+              </UserContextProvider>
+            </CodeforcesProvider>
+          </ProjectContextProvider>
+        </ProjectProvider>
+      </ResumeProvider>
+    </ResumeUpdateContextProvider>
   );
 };
 
