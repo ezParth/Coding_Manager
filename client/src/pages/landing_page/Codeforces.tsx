@@ -23,7 +23,7 @@ const Codeforces: React.FC = () => {
             alt="Codeforces Logo"
             className="h-10 w-10"
           />
-          <p className="text-xl font-semibold">parth_cf</p>
+          <p className="text-xl font-semibold">{name || "parth_cf"}</p>
         </div>
 
         {/* Profile & Stats Section */}
