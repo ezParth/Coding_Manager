@@ -1,4 +1,5 @@
 # 🚀 Coding Manager  
+![ChatGPT Image Apr 6, 2025, 12_00_52 AM](https://github.com/user-attachments/assets/bf0f0081-019f-4b13-aa2e-b8f408bace81)
 
 **Coding Manager** is your all-in-one dashboard to track your **LeetCode progress, Codeforces stats, and manage your projects**. Whether you're preparing for interviews or just want a centralized hub for all your coding activities, **Coding Manager** has you covered!  
 
