@@ -5,6 +5,7 @@ interface IUSERPROJECT {
     _id: string;
     projectTitle: string;
     projectDescription: string;
+    projectGithub: string;
     projectLinkedIn: string;
     projectTwitter: string;
     projectLink: string;

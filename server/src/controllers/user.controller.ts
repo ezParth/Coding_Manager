@@ -37,6 +37,7 @@ export const saveProject = async (req: any, res: any) => {
     const newProject = await Project.create({
       projectTitle: fields.title,
       projectDescription: fields.description,
+      projectGithub: fields?.githubLink,
       projectLink: fields?.websiteLink,
       projectTwitter: fields?.twitterLink,
       projectLinkedIn: fields?.linkedInLink,
@@ -44,8 +45,7 @@ export const saveProject = async (req: any, res: any) => {
       projectImages: [fileUrls?.[0], fileUrls?.[1]],
     });
     
-
-    const numOfProjects = user.NumberOfProjects;
+    console.log("NEW PROJECT: ", newProject);
 
     try {
       await User.findByIdAndUpdate(userId, {
@@ -54,7 +54,6 @@ export const saveProject = async (req: any, res: any) => {
       });
     } catch (error: any) {
       console.log("ERROR DURING SAVING THE PROJECT INTO USER: ", error);
-      
     }
 
     res
@@ -65,6 +64,7 @@ export const saveProject = async (req: any, res: any) => {
         fields,
         fileUrls,
       });
+      console.log("JADNCJAD: ", newProject)
   } catch (error) {
     console.log("ERROR IN SAVEPROJECT", error);
     res
@@ -107,7 +107,8 @@ export const getProjects = async (req: any, res: any) => {
           success: false,
         });
     }
-
+    console.log("NEW PROJECT: ", user.Projects);
+    console.log("KDNjskdnfvjsfvb dijfnv djfvnjsdfnvskjdnv skldnsjkdnskdn skd slkdnskj sj djf djn j")
     res.status(200).json({
       message: "Projects fetched successfully",
       success: true,

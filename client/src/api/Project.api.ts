@@ -44,7 +44,7 @@ const Project_API = async (
     });
 
     return res.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in Project_API", error);
     return { success: false, message: "Error in API call" };
   }
