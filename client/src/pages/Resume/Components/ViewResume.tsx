@@ -67,7 +67,7 @@ const ViewResume: React.FC = () => {
           📭 No resume found. Let’s create one!
         </p>
         <button
-          onClick={() => navigate("/resume/add")}
+          onClick={() => navigate("/resume/upload")}
           className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 shadow-lg"
         >
           ✨ Add Resume

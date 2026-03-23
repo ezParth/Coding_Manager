@@ -10,7 +10,7 @@ const App: React.FC = () => {
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       <ContextsProvider>
-        <Outlet /> {/* This is where the page content will be rendered */}
+        <Outlet /> 
       </ContextsProvider>
     </div>
   );
